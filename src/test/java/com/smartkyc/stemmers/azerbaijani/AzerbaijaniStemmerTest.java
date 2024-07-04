@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AzerbaijaniStemmerTest
+class AzerbaijaniStemmerTest
 {
 	@Test
-	public void testStemmer()
+	void testStemmer()
 	{
-		final  AzerbaijaniStemmer stemmer = new AzerbaijaniStemmer();
+		final AzerbaijaniStemmer stemmer = new AzerbaijaniStemmer();
 
 		final String word7 = stemmer.stem("ailələrimizin");
 		assertEquals("ailə", word7);

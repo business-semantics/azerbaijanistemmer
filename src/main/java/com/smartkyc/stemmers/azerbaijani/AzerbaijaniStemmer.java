@@ -1,6 +1,7 @@
 package com.smartkyc.stemmers.azerbaijani;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,27 +14,28 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-@Slf4j
 public class AzerbaijaniStemmer
 {
-	private final Set<String> words = new HashSet<>();
+	private static final Logger log = LoggerFactory.getLogger(AzerbaijaniStemmer.class);
 
-	private final List<String> suffixes = new ArrayList<>();
+	private final Set<String> words = loadWords();
 
-	public AzerbaijaniStemmer() {
-		loadSuffixes();
-		loadWords();
-	}
+	private final List<String> suffixes = loadSuffixes();
 
 	public String stem(final String word)
 	{
-		final String processedWord = processWord(word);
+		try {
+			final String processedWord = processWord(word);
 
-		if (processedWord.length() < 2) {
+			if (processedWord.length() < 2) {
+				return word;
+			}
+
+			return processedWord;
+		} catch (final Exception e) {
+			log.debug("Failed to stem word: {}", word, e);
 			return word;
 		}
-
-		return processedWord;
 	}
 
 	public String processWord(String word)
@@ -55,30 +57,34 @@ public class AzerbaijaniStemmer
 		return word;
 	}
 
-	private void loadSuffixes()
+	private List<String> loadSuffixes()
 	{
+		final List<String> loadedSuffixes = new ArrayList<>();
 		try (InputStream inputStream = Objects.requireNonNull(getClass().getResourceAsStream("/AzerbaijaniStemmer/suffix.txt"));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-				suffixes.add(line);
+				loadedSuffixes.add(line);
 			}
 		} catch (final IOException e) {
 			log.error("Error loading suffixes file", e);
 		}
+		return loadedSuffixes;
 	}
 
-	private void loadWords()
+	private Set<String> loadWords()
 	{
+		final Set<String> loadedWords = new HashSet<>();
 		try (InputStream inputStream = Objects.requireNonNull(getClass().getResourceAsStream("/AzerbaijaniStemmer/words.txt"));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-				words.add(line);
+				loadedWords.add(line);
 			}
 		} catch (final IOException e) {
 			log.error("Error loading words file", e);
 		}
+		return loadedWords;
 	}
 
 	// Removes one suffix at a time
