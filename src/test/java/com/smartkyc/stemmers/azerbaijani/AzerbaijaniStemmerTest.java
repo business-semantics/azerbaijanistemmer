@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AzerbaijaniStemmerTest
 {
+	final AzerbaijaniStemmer stemmer = new AzerbaijaniStemmer();
+
 	@Test
 	void testStemmer()
 	{
-		final AzerbaijaniStemmer stemmer = new AzerbaijaniStemmer();
-
 		final String word7 = stemmer.stem("ailələrimizin");
 		assertEquals("ailə", word7);
 
@@ -76,5 +76,35 @@ class AzerbaijaniStemmerTest
 
 		final String word22 = stemmer.stem("artıb");
 		assertEquals("art", word22);
+	}
+
+	@Test
+	void stem_UpperCaseWord_ShouldPreserveCapitalization()
+	{
+		assertEquals("Pandemiya", stemmer.stem("Pandemiyasına"));
+
+		assertEquals("Istiqamət", stemmer.stem("Istiqamətlərdən"));
+
+		assertEquals("TorPaq", stemmer.stem("TorPaqlarımızı"));
+
+		assertEquals("Ailə", stemmer.stem("Ailələrimizin"));
+
+		assertEquals("ÇIYNINDƏ", stemmer.stem("ÇIYNINDƏ"));
+
+		assertEquals("OğUl", stemmer.stem("OğUlSuNuZ"));
+
+		assertEquals("SöZ", stemmer.stem("SöZüMüZü"));
+
+		assertEquals("GeT", stemmer.stem("GeDəK"));
+
+		assertEquals("SaHə", stemmer.stem("SaHəSiNdƏkİ"));
+
+		assertEquals("ÜsTüNlÜk", stemmer.stem("ÜsTüNlÜyÜmÜzÜ"));
+
+		assertEquals("GəTiRl", stemmer.stem("GəTiRlMəSi"));
+
+		assertEquals("ƏnƏnƏ", stemmer.stem("ƏnƏnƏsİnİ"));
+
+		assertEquals("MüNaSiBəT", stemmer.stem("MüNaSiBəTlƏrDəN"));
 	}
 }

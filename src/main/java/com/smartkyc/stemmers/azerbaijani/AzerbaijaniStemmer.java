@@ -38,9 +38,9 @@ public class AzerbaijaniStemmer
 		}
 	}
 
-	public String processWord(String word)
+	public String processWord(String originalWord)
 	{
-		word = word.toLowerCase(Locale.forLanguageTag("AZ"));
+		String word = originalWord.toLowerCase(Locale.forLanguageTag("AZ"));
 		word = suffix(word);
 		word = converter(word);
 
@@ -48,13 +48,44 @@ public class AzerbaijaniStemmer
 			// If word ends with current suffix, remove the suffix and stem again
 			if (word.endsWith(suffix)) {
 				if (words.contains(word)) {
+					word = restoreCapitalization(originalWord, word);
 					return word;
 				}
 				word = processWord(word.substring(0, word.lastIndexOf(suffix)));
 			}
 		}
 
+		word = restoreCapitalization(originalWord, word);
+
 		return word;
+	}
+
+	private String restoreCapitalization(String originalWord, String convertedWord)
+	{
+		if (!hasUppercase(originalWord)) {
+			return convertedWord;
+		}
+
+		StringBuilder restored = new StringBuilder(convertedWord.length());
+
+		for (int i = 0; i < convertedWord.length(); i++) {
+			char charAtIndex = convertedWord.charAt(i);
+			if (Character.isUpperCase(originalWord.charAt(i))) {
+				restored.append(Character.toUpperCase(charAtIndex));
+			} else {
+				restored.append(charAtIndex);
+			}
+		}
+		return restored.toString();
+	}
+
+	private boolean hasUppercase(String word) {
+		for (int i = 0; i < word.length(); i++) {
+			if (Character.isUpperCase(word.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private List<String> loadSuffixes()
