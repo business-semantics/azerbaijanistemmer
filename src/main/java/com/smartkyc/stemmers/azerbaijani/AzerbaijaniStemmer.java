@@ -40,24 +40,24 @@ public class AzerbaijaniStemmer
 
 	public String processWord(String originalWord)
 	{
-		String word = originalWord.toLowerCase(Locale.forLanguageTag("AZ"));
-		word = suffix(word);
-		word = converter(word);
+		String processedWord = originalWord.toLowerCase(Locale.forLanguageTag("AZ"));
+		processedWord = removeSuffixes(processedWord);
+		processedWord = convertLastLetters(processedWord);
 
 		for (final String suffix : suffixes) {
 			// If word ends with current suffix, remove the suffix and stem again
-			if (word.endsWith(suffix)) {
-				if (words.contains(word)) {
-					word = restoreCapitalization(originalWord, word);
-					return word;
+			if (processedWord.endsWith(suffix)) {
+				if (words.contains(processedWord)) {
+					processedWord = restoreCapitalization(originalWord, processedWord);
+					return processedWord;
 				}
-				word = processWord(word.substring(0, word.lastIndexOf(suffix)));
+				processedWord = processWord(processedWord.substring(0, processedWord.lastIndexOf(suffix)));
 			}
 		}
 
-		word = restoreCapitalization(originalWord, word);
+		processedWord = restoreCapitalization(originalWord, processedWord);
 
-		return word;
+		return processedWord;
 	}
 
 	private String restoreCapitalization(String originalWord, String convertedWord)
@@ -119,7 +119,7 @@ public class AzerbaijaniStemmer
 	}
 
 	// Removes one suffix at a time
-	private String suffix(String word)
+	private String removeSuffixes(String word)
 	{
 		for (final String suffix : suffixes) {
 			// If the word ends with the particular suffix, create a new word by removing that suffix
@@ -134,7 +134,7 @@ public class AzerbaijaniStemmer
 		return word;
 	}
 
-	private String converter(final String word)
+	private String convertLastLetters(final String word)
 	{
 		if (word.endsWith("lığ") || word.endsWith("luğ") || word.endsWith("lağ") || word.endsWith("cığ")) {
 			final char[] l = word.toCharArray();
