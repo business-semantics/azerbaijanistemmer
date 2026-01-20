@@ -60,23 +60,23 @@ public class AzerbaijaniStemmer
 		return processedWord;
 	}
 
-	private String restoreCapitalization(String originalWord, String convertedWord)
+	private String restoreCapitalization(String originalWord, String processedWord)
 	{
 		if (!hasUppercase(originalWord)) {
-			return convertedWord;
+			return processedWord;
 		}
 
-		StringBuilder restored = new StringBuilder(convertedWord.length());
+		StringBuilder restoredWord = new StringBuilder(processedWord.length());
 
-		for (int i = 0; i < convertedWord.length(); i++) {
-			char charAtIndex = convertedWord.charAt(i);
+		for (int i = 0; i < processedWord.length(); i++) {
+			char charAtIndex = processedWord.charAt(i);
 			if (Character.isUpperCase(originalWord.charAt(i))) {
-				restored.append(Character.toUpperCase(charAtIndex));
+				restoredWord.append(Character.toUpperCase(charAtIndex));
 			} else {
-				restored.append(charAtIndex);
+				restoredWord.append(charAtIndex);
 			}
 		}
-		return restored.toString();
+		return restoredWord.toString();
 	}
 
 	private boolean hasUppercase(String word) {
