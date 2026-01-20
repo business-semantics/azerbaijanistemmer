@@ -31,8 +31,23 @@
 	</dependencies>
 
 	<distributionManagement>
-
+		<repository>
+			<id>ext-release-local</id>
+			<url>https://artifactory.smartkyc.com/artifactory/ext-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>ext-snapshot-local</id>
+			<url>https://artifactory.smartkyc.com/artifactory/ext-snapshot-local</url>
+		</snapshotRepository>
 	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/business-semantics/azerbaijanistemmer.git</connection>
+		<developerConnection>scm:git:https://github.com/business-semantics/azerbaijanistemmer.git</developerConnection>
+		<url>https://github.com/business-semantics/azerbaijanistemmer</url>
+		<tag>**</tag>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>
