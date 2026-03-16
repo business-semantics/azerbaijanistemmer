@@ -80,12 +80,8 @@ public class AzerbaijaniStemmer
 	}
 
 	private boolean hasUppercase(String word) {
-		for (int i = 0; i < word.length(); i++) {
-			if (Character.isUpperCase(word.charAt(i))) {
-				return true;
-			}
-		}
-		return false;
+		return word.chars() //
+				.anyMatch(Character::isUpperCase);
 	}
 
 	private List<String> loadSuffixes()

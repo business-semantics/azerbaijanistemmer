@@ -6,105 +6,105 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AzerbaijaniStemmerTest
 {
-	final AzerbaijaniStemmer stemmer = new AzerbaijaniStemmer();
+	private static final AzerbaijaniStemmer AZERBAIJANI_STEMMER = new AzerbaijaniStemmer();
 
 	@Test
 	void testStemmer()
 	{
-		final String word7 = stemmer.stem("ailələrimizin");
+		final String word7 = AZERBAIJANI_STEMMER.stem("ailələrimizin");
 		assertEquals("ailə", word7);
 
-		final String word10 = stemmer.stem("çiynində");
+		final String word10 = AZERBAIJANI_STEMMER.stem("çiynində");
 		assertEquals("çiynində", word10);
 
-		final String word = stemmer.stem("insanların");
+		final String word = AZERBAIJANI_STEMMER.stem("insanların");
 		assertEquals("insan", word);
 
-		final String word1 = stemmer.stem("qurbanlarının");
+		final String word1 = AZERBAIJANI_STEMMER.stem("qurbanlarının");
 		assertEquals("qurban", word1);
 
-		final String word3 = stemmer.stem("oğulsunuz");
+		final String word3 = AZERBAIJANI_STEMMER.stem("oğulsunuz");
 		assertEquals("oğul", word3);
 
-		final String word4 = stemmer.stem("sözümüzü");
+		final String word4 = AZERBAIJANI_STEMMER.stem("sözümüzü");
 		assertEquals("söz", word4);
 
-		final String word5 = stemmer.stem("gedək");
+		final String word5 = AZERBAIJANI_STEMMER.stem("gedək");
 		assertEquals("get", word5);
 
-		final String word6 = stemmer.stem("sahəsindəki");
+		final String word6 = AZERBAIJANI_STEMMER.stem("sahəsindəki");
 		assertEquals("sahə", word6);
 
-		final String word8 = stemmer.stem("üstünlüyümüzü");
+		final String word8 = AZERBAIJANI_STEMMER.stem("üstünlüyümüzü");
 		assertEquals("üstünlük", word8);
 
-		final String word9 = stemmer.stem("gətirlməsi");
+		final String word9 = AZERBAIJANI_STEMMER.stem("gətirlməsi");
 		assertEquals("gətirl", word9);
 
-		final String word11 = stemmer.stem("ənənəsini");
+		final String word11 = AZERBAIJANI_STEMMER.stem("ənənəsini");
 		assertEquals("ənənə", word11);
 
-		final String word12 = stemmer.stem("münasibətlərdən");
+		final String word12 = AZERBAIJANI_STEMMER.stem("münasibətlərdən");
 		assertEquals("münasibət", word12);
 
-		final String word13 = stemmer.stem("kommersiya");
+		final String word13 = AZERBAIJANI_STEMMER.stem("kommersiya");
 		assertEquals("kommersiya", word13);
 
-		final String word14 = stemmer.stem("nəzarətimizdən");
+		final String word14 = AZERBAIJANI_STEMMER.stem("nəzarətimizdən");
 		assertEquals("nəzarət", word14);
 
-		final String word15 = stemmer.stem("müharibəyə");
+		final String word15 = AZERBAIJANI_STEMMER.stem("müharibəyə");
 		assertEquals("müharibə", word15);
 
-		final String word16 = stemmer.stem("torpaqlarımızı");
+		final String word16 = AZERBAIJANI_STEMMER.stem("torpaqlarımızı");
 		assertEquals("torpaq", word16);
 
-		final String word17 = stemmer.stem("millətçilərinin");
+		final String word17 = AZERBAIJANI_STEMMER.stem("millətçilərinin");
 		assertEquals("millətçi", word17);
 
-		final String word18 = stemmer.stem("istiqamətlərdən");
+		final String word18 = AZERBAIJANI_STEMMER.stem("istiqamətlərdən");
 		assertEquals("istiqamət", word18);
 
-		final String word19 = stemmer.stem("çatdırılmasının");
+		final String word19 = AZERBAIJANI_STEMMER.stem("çatdırılmasının");
 		assertEquals("çatdırılma", word19);
 
-		final String word20 = stemmer.stem("pandemiyasına");
+		final String word20 = AZERBAIJANI_STEMMER.stem("pandemiyasına");
 		assertEquals("pandemiya", word20);
 
-		final String word21 = stemmer.stem("faiz");
+		final String word21 = AZERBAIJANI_STEMMER.stem("faiz");
 		assertEquals("faiz", word21);
 
-		final String word22 = stemmer.stem("artıb");
+		final String word22 = AZERBAIJANI_STEMMER.stem("artıb");
 		assertEquals("art", word22);
 	}
 
 	@Test
 	void stem_UpperCaseWord_ShouldPreserveCapitalization()
 	{
-		assertEquals("Pandemiya", stemmer.stem("Pandemiyasına"));
+		assertEquals("Pandemiya", AZERBAIJANI_STEMMER.stem("Pandemiyasına"));
 
-		assertEquals("Istiqamət", stemmer.stem("Istiqamətlərdən"));
+		assertEquals("Istiqamət", AZERBAIJANI_STEMMER.stem("Istiqamətlərdən"));
 
-		assertEquals("TorPaq", stemmer.stem("TorPaqlarımızı"));
+		assertEquals("TorPaq", AZERBAIJANI_STEMMER.stem("TorPaqlarımızı"));
 
-		assertEquals("Ailə", stemmer.stem("Ailələrimizin"));
+		assertEquals("Ailə", AZERBAIJANI_STEMMER.stem("Ailələrimizin"));
 
-		assertEquals("ÇIYNINDƏ", stemmer.stem("ÇIYNINDƏ"));
+		assertEquals("ÇIYNINDƏ", AZERBAIJANI_STEMMER.stem("ÇIYNINDƏ"));
 
-		assertEquals("OğUl", stemmer.stem("OğUlSuNuZ"));
+		assertEquals("OğUl", AZERBAIJANI_STEMMER.stem("OğUlSuNuZ"));
 
-		assertEquals("SöZ", stemmer.stem("SöZüMüZü"));
+		assertEquals("SöZ", AZERBAIJANI_STEMMER.stem("SöZüMüZü"));
 
-		assertEquals("GeT", stemmer.stem("GeDəK"));
+		assertEquals("GeT", AZERBAIJANI_STEMMER.stem("GeDəK"));
 
-		assertEquals("SaHə", stemmer.stem("SaHəSiNdƏkİ"));
+		assertEquals("SaHə", AZERBAIJANI_STEMMER.stem("SaHəSiNdƏkİ"));
 
-		assertEquals("ÜsTüNlÜk", stemmer.stem("ÜsTüNlÜyÜmÜzÜ"));
+		assertEquals("ÜsTüNlÜk", AZERBAIJANI_STEMMER.stem("ÜsTüNlÜyÜmÜzÜ"));
 
-		assertEquals("GəTiRl", stemmer.stem("GəTiRlMəSi"));
+		assertEquals("GəTiRl", AZERBAIJANI_STEMMER.stem("GəTiRlMəSi"));
 
-		assertEquals("ƏnƏnƏ", stemmer.stem("ƏnƏnƏsİnİ"));
+		assertEquals("ƏnƏnƏ", AZERBAIJANI_STEMMER.stem("ƏnƏnƏsİnİ"));
 
-		assertEquals("MüNaSiBəT", stemmer.stem("MüNaSiBəTlƏrDəN"));
+		assertEquals("MüNaSiBəT", AZERBAIJANI_STEMMER.stem("MüNaSiBəTlƏrDəN"));
 	}
 }
