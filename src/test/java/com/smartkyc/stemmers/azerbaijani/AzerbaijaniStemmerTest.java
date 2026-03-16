@@ -107,4 +107,11 @@ class AzerbaijaniStemmerTest
 
 		assertEquals("MüNaSiBəT", AZERBAIJANI_STEMMER.stem("MüNaSiBəTlƏrDəN"));
 	}
+
+	@Test
+	void testCasingWithI() {
+		// In Azerbaijani, 'i'.toUpperCase() should be 'İ' (dotted I)
+		// 'I'.toLowerCase() should be 'ı' (dotless i)
+		assertEquals("İNSAN", AZERBAIJANI_STEMMER.stem("İNSANLARIN"));
+	}
 }

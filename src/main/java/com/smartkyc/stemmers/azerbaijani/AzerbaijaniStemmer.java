@@ -66,16 +66,19 @@ public class AzerbaijaniStemmer
 			return processedWord;
 		}
 
+		final Locale azLocale = Locale.forLanguageTag("AZ");
 		StringBuilder restoredWord = new StringBuilder(processedWord.length());
 
-		for (int i = 0; i < processedWord.length(); i++) {
+		int limit = Math.min(processedWord.length(), originalWord.length());
+		for (int i = 0; i < limit; i++) {
 			char charAtIndex = processedWord.charAt(i);
 			if (Character.isUpperCase(originalWord.charAt(i))) {
-				restoredWord.append(Character.toUpperCase(charAtIndex));
+				restoredWord.append(String.valueOf(charAtIndex).toUpperCase(azLocale));
 			} else {
 				restoredWord.append(charAtIndex);
 			}
 		}
+
 		return restoredWord.toString();
 	}
 
