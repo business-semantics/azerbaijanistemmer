@@ -4,7 +4,7 @@
 
 	<groupId>com.smartkyc.stemmers</groupId>
 	<artifactId>azerbaijani-stemmer</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>azerbaijani-stemmer</name>
@@ -31,8 +31,23 @@
 	</dependencies>
 
 	<distributionManagement>
-
+		<repository>
+			<id>ext-release-local</id>
+			<url>https://artifactory.smartkyc.com/artifactory/ext-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>ext-snapshot-local</id>
+			<url>https://artifactory.smartkyc.com/artifactory/ext-snapshot-local</url>
+		</snapshotRepository>
 	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/business-semantics/azerbaijanistemmer.git</connection>
+		<developerConnection>scm:git:https://github.com/business-semantics/azerbaijanistemmer.git</developerConnection>
+		<url>https://github.com/business-semantics/azerbaijanistemmer</url>
+		<tag>**</tag>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>

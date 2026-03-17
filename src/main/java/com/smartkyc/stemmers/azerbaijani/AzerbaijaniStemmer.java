@@ -38,23 +38,53 @@ public class AzerbaijaniStemmer
 		}
 	}
 
-	public String processWord(String word)
+	public String processWord(String originalWord)
 	{
-		word = word.toLowerCase(Locale.forLanguageTag("AZ"));
-		word = suffix(word);
-		word = converter(word);
+		String processedWord = originalWord.toLowerCase(Locale.forLanguageTag("AZ"));
+		processedWord = removeSuffixes(processedWord);
+		processedWord = convertLastLetters(processedWord);
 
 		for (final String suffix : suffixes) {
 			// If word ends with current suffix, remove the suffix and stem again
-			if (word.endsWith(suffix)) {
-				if (words.contains(word)) {
-					return word;
+			if (processedWord.endsWith(suffix)) {
+				if (words.contains(processedWord)) {
+					processedWord = restoreCapitalization(originalWord, processedWord);
+					return processedWord;
 				}
-				word = processWord(word.substring(0, word.lastIndexOf(suffix)));
+				processedWord = processWord(processedWord.substring(0, processedWord.lastIndexOf(suffix)));
 			}
 		}
 
-		return word;
+		processedWord = restoreCapitalization(originalWord, processedWord);
+
+		return processedWord;
+	}
+
+	private String restoreCapitalization(String originalWord, String processedWord)
+	{
+		if (!hasUppercase(originalWord)) {
+			return processedWord;
+		}
+
+		final Locale azLocale = Locale.forLanguageTag("AZ");
+		StringBuilder restoredWord = new StringBuilder(processedWord.length());
+
+		int limit = Math.min(processedWord.length(), originalWord.length());
+		for (int i = 0; i < limit; i++) {
+			char charAtIndex = processedWord.charAt(i);
+			if (Character.isUpperCase(originalWord.charAt(i))) {
+				restoredWord.append(String.valueOf(charAtIndex).toUpperCase(azLocale));
+			} else {
+				restoredWord.append(charAtIndex);
+			}
+		}
+
+		return restoredWord.toString();
+	}
+
+	private boolean hasUppercase(String word) {
+		return word.chars() //
+				.anyMatch(Character::isUpperCase);
 	}
 
 	private List<String> loadSuffixes()
@@ -88,7 +118,7 @@ public class AzerbaijaniStemmer
 	}
 
 	// Removes one suffix at a time
-	private String suffix(String word)
+	private String removeSuffixes(String word)
 	{
 		for (final String suffix : suffixes) {
 			// If the word ends with the particular suffix, create a new word by removing that suffix
@@ -103,7 +133,7 @@ public class AzerbaijaniStemmer
 		return word;
 	}
 
-	private String converter(final String word)
+	private String convertLastLetters(final String word)
 	{
 		if (word.endsWith("lığ") || word.endsWith("luğ") || word.endsWith("lağ") || word.endsWith("cığ")) {
 			final char[] l = word.toCharArray();
